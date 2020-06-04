@@ -1,22 +1,23 @@
 /*
-             OPCODE
+                 OPCODE
+	     
      BINÁRIO       HEXADECIMAL     INSTRUÇÃO
-    0000 0000   =     0x00      =   NOP
-    0001 0000   =     0x10      =   LDR  
-    0010 0000   =     0x20      =   STR 
-    0011 0000   =     0x30      =   ADD
-    0100 0000   =     0x40      =   SUB
-    0101 0000   =     0x50      =   MUL
-    0110 0000   =     0x60      =   DIV
-    0101 0000   =     0x70      =   NOT
-    1000 0000   =     0x80      =   AND
-    1001 0000   =     0x90      =   OR
-    1010 0000   =     0xA0;     =   XOR
-    1011 0000   =     0xB0      =   JMP
-    1100 0000   =     0xC0      =   JEQ
-    1101 0000   =     0xD0      =   JG
-    1110 0000   =     0xE0      =   JL
-    1111 0000   =     0xF0      =   HLT
+    0000 0000   =     0x00      =    NOP
+    0001 0000   =     0x10      =    LDR  
+    0010 0000   =     0x20      =    STR 
+    0011 0000   =     0x30      =    ADD
+    0100 0000   =     0x40      =    SUB
+    0101 0000   =     0x50      =    MUL
+    0110 0000   =     0x60      =    DIV
+    0101 0000   =     0x70      =    NOT
+    1000 0000   =     0x80      =    AND
+    1001 0000   =     0x90      =    OR
+    1010 0000   =     0xA0;     =    XOR
+    1011 0000   =     0xB0      =    JMP
+    1100 0000   =     0xC0      =    JEQ
+    1101 0000   =     0xD0      =    JG
+    1110 0000   =     0xE0      =    JL
+    1111 0000   =     0xF0      =    HLT
 
 */
 
@@ -41,15 +42,56 @@ int main (void){
        getchar();
        exit (1);   
         }
-    printf("Input file: entrada01.txt \n \n");
+    printf("Input file: entrada01.txt \n");
+    printf("\n");
     
     while (!feof(file)){ //Le o arquivo enquanto ainda ha conteudo
         fscanf(file ,"%x %x", &endr, &info); // %x para hexadecimal
-		mem[endr] = info;   
+	mem[endr] = info; // guradando todas os dados contidos no arquivo no vetor mem com indice endr   
     }
+    do{//Percorrendo todo o vetor até um break
+        // Passando as informaçoes para os registradores     
+        rem = endr;
+        rdm = mem[rem];
+        ri = rdm;
+        
+        //Testando no conj. de instruçoes do PH1
+        //NOP
+        if(ri == 0x00){ 
+            pc = pc+1; //Regra sem exceçao, utiliza 1 Byte
+	    printf("NOP;\n");
+	    execut++;
+	    continue;
+	}
+        //LDR
+        if(ri == 0x10){
+            pc = pc+2; //Utiliza 2 Bytes 
+            printf("LDR %x; ", rdm);
+            printf("AC <- MEM[%x]\n", rdm);
+            rem = rdm;
+            rdm = mem[rem];
+            ac = rdm; // dado contido na no end de mem vai pro ac
+            execut++;
+	    continue;
+            
+        }
+        //STR
+        if(ri == 0x20){
+            pc=pc+2;
+            printf("STR %x; ", rdm);
+            printf("MEM[%x] <- AC\n", rdm);
+            rem = rdm;
+            rdm = ac; //reg. de mem recebe o valor contido no ac
+            mem[rem] = rdm;
+            execut++;
+	    continue;
+        }
+        
+    }while(1) //loop infinito
+	    
     // Testes
-        //Instrucoes que utilizam 1 Byte
-            /*if(opcode = '0' || '7' || 'F' ){
+        
+            /*{
                 if(opcode = '0'){ //NOP
                 fprintf (dest, "\n");    
                 }
