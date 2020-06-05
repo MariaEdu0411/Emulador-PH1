@@ -51,7 +51,7 @@ int main (void){
     }
     do{//Percorrendo todo o vetor até um break
         // Passando as informaçoes para os registradores     
-        rem = endr;
+        rem = pc;
         rdm = mem[rem];
         ri = rdm;
         
@@ -86,31 +86,67 @@ int main (void){
             execut++;
 	    continue;
         }
+	    //ADD
+        if(ri == 0x30){
+            pc = pc + 2;
+            printf("ADD %x; ", rdm);
+            printf("AC <- AC + MEM[%x]", rdm);
+            rem = rdm;
+            rdm = mem[rem];
+            ac= ac + rdm;
+            execut++;
+            continue;
+        }
+        //SUB
+        if(ri == 0x40){
+            pc = pc + 2;
+            printf("SUB %x; ", rdm);
+            printf("AC <- AC - MEM[%x]", rdm);
+            rem = rdm;
+            rdm = mem[rem];
+            ac= ac - rdm;
+            execut++;
+            continue;
+        }
+        //MUL
+        if(ri == 0x50){
+            pc = pc + 2;
+            printf("MUL %x; ", rdm);
+            printf("AC <- AC * MEM[%x]", rdm);
+            rem = rdm;
+            rdm = mem[rem];
+            ac= ac * rdm;
+            execut++;
+            continue;
+        }
+        //DIV
+        if(ri == 0x60){
+            pc = pc + 2;
+            printf("ADD %x; ", rdm);
+            printf("AC <- AC / MEM[%x]", rdm);
+            rem = rdm;
+            rdm = mem[rem];
+            ac= ac / rdm;
+            execut++;
+            continue;
+        }
         
     }while(1) //loop infinito
-	    
-    // Testes
-        
-            /*{
-                if(opcode = '0'){ //NOP
-                fprintf (dest, "\n");    
-                }
-                if(opcode = '7'){ //NOT
-                ac = !ac;
-                fprintf (dest, "AC <- !AC");    
-                }
-                if(opcode = 'F'){ //HLT
-                fprintf (dest, "HLT");   
-                exit(1); 
-                }
-            }
-        //Instrucoes que utilizam 2 Bytes
-            else{
-                
-            }*/
-        
 
-
+    printf("\n");
+    printf("% instructions executed\n",  execut);
+    printf("\n");
+    printf("Registers:\n");
+    printf("AC &x\n", ac);
+    printf("PC %x\n", pc);
+    printf("\n");
+    printf("Memory:\n");
+    
+    int i; 
+    for(i = 128; i < 131; i++){ // 80 = 128
+        printf("%x %x\n", i, mem[i]);
+    }
+    return 0;
 }
 
 
