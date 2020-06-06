@@ -58,14 +58,15 @@ int main (void){
         //Testando no conj. de instruçoes do PH1
         //NOP
         if(ri == 0x00){ 
-            pc = pc+1; //Regra sem exceçao, utiliza 1 Byte
+            pc = pc + 1; //Regra sem exceçao, utiliza 1 Byte
 	    printf("NOP;\n");
 	    execut++;
 	    continue;
 	}
         //LDR
         if(ri == 0x10){
-            pc = pc+2; //Utiliza 2 Bytes 
+            pc = pc + 2; //Utiliza 2 Bytes 
+	    rdm = mem[rem +1]; // para que pegue o dado (proximo indice do vetor)
             printf("LDR %x; ", rdm);
             printf("AC <- MEM[%x]\n", rdm);
             rem = rdm;
@@ -77,7 +78,8 @@ int main (void){
         }
         //STR
         if(ri == 0x20){
-            pc=pc+2;
+            pc=pc + 2;
+	    rdm = mem[rem +1];
             printf("STR %x; ", rdm);
             printf("MEM[%x] <- AC\n", rdm);
             rem = rdm;
@@ -89,17 +91,19 @@ int main (void){
 	    //ADD
         if(ri == 0x30){
             pc = pc + 2;
+            rdm = mem[rem +1];
             printf("ADD %x; ", rdm);
             printf("AC <- AC + MEM[%x]", rdm);
             rem = rdm;
             rdm = mem[rem];
-            ac= ac + rdm;
+            ac = ac + rdm;
             execut++;
             continue;
         }
         //SUB
         if(ri == 0x40){
             pc = pc + 2;
+	    rdm = mem[rem +1];
             printf("SUB %x; ", rdm);
             printf("AC <- AC - MEM[%x]", rdm);
             rem = rdm;
@@ -111,27 +115,47 @@ int main (void){
         //MUL
         if(ri == 0x50){
             pc = pc + 2;
+	    rdm = mem[rem +1];
             printf("MUL %x; ", rdm);
             printf("AC <- AC * MEM[%x]", rdm);
             rem = rdm;
             rdm = mem[rem];
-            ac= ac * rdm;
+            ac = ac * rdm;
             execut++;
             continue;
         }
         //DIV
         if(ri == 0x60){
             pc = pc + 2;
+	    rdm = mem[rem +1];
             printf("ADD %x; ", rdm);
             printf("AC <- AC / MEM[%x]", rdm);
             rem = rdm;
             rdm = mem[rem];
-            ac= ac / rdm;
+            ac = ac / rdm;
             execut++;
             continue;
         }
+	//NOT
+        if(ri == 0x70){
+            pc = pc + 1; //1 Byte
+	    printf("NOT;");
+	    printf("AC <- !AC\n");
+	    rem = rdm;
+            rdm = mem[rem];
+            ac = !ac;
+	    execut++;
+	    continue;
+        }
+	//HLT
+        if(ri == 0xF0){
+            pc = pc + 1; //1 Byte
+	    printf("HLT;\n");
+	    execut++;
+	    break;
+        }
         
-    }while(1) //loop infinito
+    }while(1) //loop infinito ate o HLT (break)
 
     printf("\n");
     printf("% instructions executed\n",  execut);
