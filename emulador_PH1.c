@@ -143,7 +143,7 @@ int main (void){
 	    printf("AC <- !AC\n");
 	    rem = rdm;
             rdm = mem[rem];
-            ac = !ac;
+            ac = ~ac;
 	    execut++;
 	    continue;
         }
