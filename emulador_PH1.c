@@ -49,11 +49,8 @@ int main(void){
     do{ // guradando todas os dados contidos no arquivo no vetor mem
         fscanf( file ,"%x %x", &endr, &info);
 		mem[endr] = info;
-        //printf("%x = %x\n", endr, info);
-
-
     }while(!feof(file)); //continua lendo o arquivo ate nao haver mais o que  ler
-    fclose(file);
+    fclose(file); //fecha o arquivo
     do{
 
         // Passando as informaçoes para os registradores
