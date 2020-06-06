@@ -150,6 +150,84 @@ int main(void){
 			execut++;
 			continue;
         }
+	//AND
+        if(ri == 0x80){
+            pc = pc + 2;
+            rdm = mem[rem +1];
+            printf("AND; ");
+            printf("AC <- AC & MEM[%x]\n", rdm);
+            rem = rdm;
+            rdm = mem[rem];
+            ac = ac & rdm;
+            execut++;
+            continue;
+        }
+        //OR
+        if (ri == 0x90){
+            pc = pc + 2;
+            rdm = mem[rem +1];
+            printf("OR; ");
+            printf("AC <- AC | MEM[%x]\n", rdm);
+            rem = rdm;
+            rdm = mem[rem];
+            ac = ac | rdm;
+            execut++;
+            continue;
+        }
+        //XOR
+        if (ri == 0xA0){
+            pc = pc + 2;
+            rdm = mem[rem +1];
+            printf("XOR; ");
+            printf("AC <- AC ^ MEM[%x]\n", rdm);
+            rem = rdm;
+            rdm = mem[rem];
+            ac = ac ^ rdm;
+            execut++;
+            continue;
+        }
+        //JMP
+        if (ri == 0xB0){
+            pc = pc + 1;
+            printf("JMP; ");
+            printf("PC <- %x\n", rdm);
+            pc = rdm;
+            execut++;
+            continue;
+        }
+        //JEQ
+        if(ri == 0xC0){
+              if(ac == 0){
+                pc = pc + 1;
+                printf("JEQ; ");
+                printf("PC <- %x\n", rdm);
+                pc = rdm;
+                execut++;
+              }
+            continue;
+        }
+        //JG
+        if(ri == 0xD0){
+              if(ac > 0){
+                pc = pc + 1;
+                printf("JG; ");
+                printf("PC <- %x\n", rdm);
+                pc = rdm;
+                execut++;
+              }
+            continue;
+        }
+        //JL
+        if(ri == 0xE0){
+              if(ac < 0){
+                pc = pc + 1;
+                printf("JL; ");
+                printf("PC <- %x\n", rdm);
+                pc = rdm;
+                execut++;
+              }
+            continue;
+        }
 	//HLT
         if(ri == 0xF0){
             pc = pc + 1; //1 Byte
