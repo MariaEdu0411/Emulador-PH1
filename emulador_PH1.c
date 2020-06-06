@@ -167,7 +167,7 @@ int main(void){
     printf("%d instructions executed \n",  execut);
     printf("\n");
     printf("Registers:\n");
-    printf("AC &02x \n", ac);
+    printf("AC %02x \n", ac);
     printf("PC %02d \n", pc);
     printf("\n");
     printf("Memory:\n");
