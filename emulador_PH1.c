@@ -188,7 +188,8 @@ int main(void){
         }
         //JMP
         if (ri == 0xB0){
-            pc = pc + 1;
+            pc = pc + 2;
+	    rdm = mem[rem +1];
             printf("JMP; ");
             printf("PC <- %x\n", rdm);
             pc = rdm;
@@ -198,7 +199,8 @@ int main(void){
         //JEQ
         if(ri == 0xC0){
               if(ac == 0){
-                pc = pc + 1;
+                pc = pc + 2;
+		rdm = mem[rem +1];
                 printf("JEQ; ");
                 printf("PC <- %x\n", rdm);
                 pc = rdm;
@@ -209,7 +211,8 @@ int main(void){
         //JG
         if(ri == 0xD0){
               if(ac > 0){
-                pc = pc + 1;
+                pc = pc + 2;
+		rdm = mem[rem +1];
                 printf("JG; ");
                 printf("PC <- %x\n", rdm);
                 pc = rdm;
@@ -220,7 +223,8 @@ int main(void){
         //JL
         if(ri == 0xE0){
               if(ac < 0){
-                pc = pc + 1;
+                pc = pc + 2;
+		rdm = mem[rem +1];
                 printf("JL; ");
                 printf("PC <- %x\n", rdm);
                 pc = rdm;
