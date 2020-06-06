@@ -62,10 +62,10 @@ int main(void){
         //NOP
         if(ri == 0x00){
             pc = pc + 1; //Regra sem exceçao, utiliza 1 Byte
-			printf("NOP;\n");
-			execut++;
-			continue;
-		}
+	    printf("NOP;\n");
+	    execut++;
+	    continue;
+	}
         //LDR
         if(ri == 0x10){
             pc = pc + 2; //Utiliza 2 Bytes
