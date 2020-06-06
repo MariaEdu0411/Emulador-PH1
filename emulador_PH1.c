@@ -161,7 +161,7 @@ int main(void){
 	    break;
         }
         
-    }while(1) //loop infinito ate o HLT (break)
+    }while(1); //loop infinito ate o HLT (break)
 
     printf("\n");
     printf("%d instructions executed \n",  execut);
