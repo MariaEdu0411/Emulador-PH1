@@ -23,7 +23,7 @@
 
 #include <stdio.h>
 
-int main(void){
+int main(int argc, char **argv){
     int mem [256]; //vetor onde serao armazenadas as infos do arquivo
     int pc = 0; //program counter
     int ac; //acumulador
@@ -33,17 +33,22 @@ int main(void){
     int execut = 0; // contador de instrucoes executadas
     int endr; //endereco de onde a info esta no vetor (primeira coluna do arquivo)
     int info; //informaçao contida no endr (segunda coluna do arquivo)
-
-
+	
     FILE *file;
-    file = fopen("entrada01.txt", "r"); //abre o arquivo para leitura
+	
+    if(argc != 2){
+	printf("Argumentos Invalidos\n");
+	return 0;
+    }
+	
+    file = fopen(argv[1], "r"); //abre o arquivo para leitura
 
     if(file == NULL){ //Nao aponta em um end de memoria (o arq nao existe)
        printf("Arquivo nao pode ser aberto \n");
        getchar();
        exit(0);
     }
-    printf("Input file: entrada01.txt \n");
+    printf("Input file:%s\n", argv[1]);
     printf("\n");
 
     do{ // guradando todas os dados contidos no arquivo no vetor mem
