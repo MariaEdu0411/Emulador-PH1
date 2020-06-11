@@ -1,3 +1,6 @@
+// gcc emulador_PH1.c -o emulador_PH1
+// ./emulador_PH1 entrada01.txt 
+
 /*
                   OPCODE
 
@@ -22,6 +25,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char **argv){
     int mem [256]; //vetor onde serao armazenadas as infos do arquivo
@@ -48,7 +52,7 @@ int main(int argc, char **argv){
        getchar();
        exit(0);
     }
-    printf("Input file:%s\n", argv[1]);
+    printf("Input file: %s\n", argv[1]);
     printf("\n");
 
     do{ // guradando todas os dados contidos no arquivo no vetor mem
