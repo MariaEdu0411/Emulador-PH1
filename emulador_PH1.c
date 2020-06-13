@@ -37,12 +37,14 @@ int main(int argc, char **argv){
     int execut = 0; // contador de instrucoes executadas
     int endr; //endereco de onde a info esta no vetor (primeira coluna do arquivo)
     int info; //informaçao contida no endr (segunda coluna do arquivo)
+    int comp [256]; //vetor para comparar os dados da memoria no final
+    int indice; //indice para usar na comparacao
 	
     FILE *file;
 	
     if(argc != 2){
 	printf("Argumentos Invalidos\n");
-	return 0;
+	exit(1);
     }
 	
     file = fopen(argv[1], "r"); //abre o arquivo para leitura
@@ -50,16 +52,22 @@ int main(int argc, char **argv){
     if(file == NULL){ //Nao aponta em um end de memoria (o arq nao existe)
        printf("Arquivo nao pode ser aberto \n");
        getchar();
-       exit(0);
+       exit(1);
     }
     printf("Input file: %s\n", argv[1]);
     printf("\n");
 
     do{ // guradando todas os dados contidos no arquivo no vetor mem
+	    
         fscanf( file ,"%x %x", &endr, &info);
-		mem[endr] = info;
+	mem[endr] = info;
+	comp[endr] = info;
+        indice = endr; //o ultimo endereco da memoria ficara aqui
+	    
     }while(!feof(file)); //continua lendo o arquivo ate nao haver mais o que  ler
+	
     fclose(file); //fecha o arquivo
+	
     do{
 
         // Passando as informaçoes para os registradores
@@ -256,13 +264,15 @@ int main(int argc, char **argv){
     printf("\n");
     printf("Registers:\n");
     printf("AC %02x \n", ac);
-    printf("PC %02d \n", pc);
+    printf("PC %02x \n", pc);
     printf("\n");
     printf("Memory:\n");
 
     int i;
-    for(i = 128; i < 131; i++){ // 80 = 128
-        printf("%x %02x\n", i, mem[i]);
+    for(i = 128; i < indice + 1; i++){ // 80 = 128 ate o fim do vetor
+        if(mem[i] != comp[i]){
+        	printf("%x %02x\n", i, mem[i]); //mostra aquele que foi modificado
+        }
     }
     return 0;
 
