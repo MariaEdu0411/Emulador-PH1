@@ -148,7 +148,7 @@ int main(int argc, char **argv){
         if(ri == 0x60){
             pc = pc + 2;
             rdm = mem[rem +1];
-            printf("ADD %x; ", rdm);
+            printf("DIV %x; ", rdm);
             printf("AC <- AC / MEM[%x]\n", rdm);
             rem = rdm;
             rdm = mem[rem];
@@ -159,9 +159,9 @@ int main(int argc, char **argv){
         //NOT
         if(ri == 0x70){
             pc = pc + 1; //1 Byte
-			printf("NOT;");
-			printf("AC <- !AC\n");
-			rem = rdm;
+	    printf("NOT;");
+	    printf("AC <- !AC\n");
+	    rem = rdm;
             rdm = mem[rem];
             ac = !ac;
 			execut++;
@@ -171,7 +171,7 @@ int main(int argc, char **argv){
         if(ri == 0x80){
             pc = pc + 2;
             rdm = mem[rem +1];
-            printf("AND; ");
+            printf("AND %x; ", rdm);
             printf("AC <- AC & MEM[%x]\n", rdm);
             rem = rdm;
             rdm = mem[rem];
@@ -183,7 +183,7 @@ int main(int argc, char **argv){
         if (ri == 0x90){
             pc = pc + 2;
             rdm = mem[rem +1];
-            printf("OR; ");
+            printf("OR %x; ", rdm);
             printf("AC <- AC | MEM[%x]\n", rdm);
             rem = rdm;
             rdm = mem[rem];
@@ -195,7 +195,7 @@ int main(int argc, char **argv){
         if (ri == 0xA0){
             pc = pc + 2;
             rdm = mem[rem +1];
-            printf("XOR; ");
+            printf("XOR %x; ", rdm);
             printf("AC <- AC ^ MEM[%x]\n", rdm);
             rem = rdm;
             rdm = mem[rem];
@@ -207,8 +207,8 @@ int main(int argc, char **argv){
         if (ri == 0xB0){
             pc = pc + 2;
 	    rdm = mem[rem +1];
-            printf("JMP; ");
-            printf("PC <- %x\n", rdm);
+            printf("JMP %02x; ", rdm);
+            printf("PC <- %02x\n", rdm);
             pc = rdm;
             execut++;
             continue;
@@ -218,8 +218,8 @@ int main(int argc, char **argv){
               if(ac == 0){
                 pc = pc + 2;
 		rdm = mem[rem +1];
-                printf("JEQ; ");
-                printf("PC <- %x\n", rdm);
+                printf("JEQ %02x; ", rdm);
+                printf("PC <- %02x\n", rdm);
                 pc = rdm;
                 execut++;
               }
@@ -230,8 +230,8 @@ int main(int argc, char **argv){
               if(ac > 0){
                 pc = pc + 2;
 		rdm = mem[rem +1];
-                printf("JG; ");
-                printf("PC <- %x\n", rdm);
+                printf("JG %02x; ", rdm);
+                printf("PC <- %02x\n", rdm);
                 pc = rdm;
                 execut++;
               }
@@ -242,8 +242,8 @@ int main(int argc, char **argv){
               if(ac < 0){
                 pc = pc + 2;
 		rdm = mem[rem +1];
-                printf("JL; ");
-                printf("PC <- %x\n", rdm);
+                printf("JL %02x; ", rdm);
+                printf("PC <- %02x\n", rdm);
                 pc = rdm;
                 execut++;
               }
