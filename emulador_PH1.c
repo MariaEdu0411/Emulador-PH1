@@ -215,37 +215,37 @@ int main(int argc, char **argv){
         }
         //JEQ
         if(ri == 0xC0){
+		pc = pc + 2;
+		execut++;
               if(ac == 0){
-                pc = pc + 2;
 		rdm = mem[rem +1];
                 printf("JEQ %02x; ", rdm);
                 printf("PC <- %02x\n", rdm);
                 pc = rdm;
-                execut++;
-              }
+               }
             continue;
         }
         //JG
         if(ri == 0xD0){
-              if(ac > 0){
-                pc = pc + 2;
+		pc = pc + 2;
+		execut++;
+              if(ac > 0){ 
 		rdm = mem[rem +1];
                 printf("JG %02x; ", rdm);
                 printf("PC <- %02x\n", rdm);
-                pc = rdm;
-                execut++;
+                pc = rdm; 
               }
             continue;
         }
         //JL
         if(ri == 0xE0){
+		execut++;
+		pc = pc + 2;
               if(ac < 0){
-                pc = pc + 2;
 		rdm = mem[rem +1];
                 printf("JL %02x; ", rdm);
                 printf("PC <- %02x\n", rdm);
-                pc = rdm;
-                execut++;
+                pc = rdm; 
               }
             continue;
         }
