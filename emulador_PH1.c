@@ -161,8 +161,6 @@ int main(int argc, char **argv){
             pc = pc + 1; //1 Byte
 	    printf("NOT;");
 	    printf("AC <- !AC\n");
-	    rem = rdm;
-            rdm = mem[rem];
             ac = !ac;
 			execut++;
 			continue;
